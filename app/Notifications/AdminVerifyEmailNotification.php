@@ -2,6 +2,7 @@
 
 namespace App\Notifications\Admin;
 
+use App\Models\Admin;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Lang;
@@ -18,6 +19,21 @@ class AdminVerifyEmailNotification extends Notification
     public static $toMailCallback;
 
     /**
+     * @var Admin
+     */
+    private $admin;
+
+    /**
+     * AdminVerifyEmailNotification constructor.
+     * @param Admin $admin
+     */
+    public function __construct(Admin $admin)
+    {
+        $this->admin = $admin;
+
+    }
+
+    /**
      * Get the notification's channels.
      *
      * @param  mixed  $notifiable
@@ -28,6 +44,19 @@ class AdminVerifyEmailNotification extends Notification
         return ['mail'];
     }
 
+    private function mailInfo($notifiable) {
+        return [
+            'mail_header' => 'Verify Email Address',
+            'mail_message' => 'Please click the button below to verify your email address.',
+            'email_address' => $this->admin->email,
+            'user_name' => $this->admin->name,
+            'button_text' => 'Verify Now!',
+            'button_link' => $this->verificationUrl($notifiable),
+            'additional_info' => 'If you did not create an account, no further action is required.',
+            // TODO: setup the remover link
+            'remove_email_link' => ''
+        ];
+    }
     /**
      * Build the mail representation of the notification.
      *
@@ -40,14 +69,9 @@ class AdminVerifyEmailNotification extends Notification
             return call_user_func(static::$toMailCallback, $notifiable);
         }
 
-        return (new MailMessage)
-            ->subject(Lang::getFromJson('Verify Email Address'))
-            ->line(Lang::getFromJson('Please click the button below to verify your email address.'))
-            ->action(
-                Lang::getFromJson('Verify Email Address'),
-                $this->verificationUrl($notifiable)
-            )
-            ->line(Lang::getFromJson('If you did not create an account, no further action is required.'));
+        return (new MailMessage)->view(
+            'mail.single_button_mail', $this->mailInfo($notifiable)
+        )->subject('['.config('app.name').']'.' Mail Verification');
     }
 
     /**

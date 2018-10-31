@@ -14,3 +14,12 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::get('/send_test_email', function () {
+
+    $user = auth('user')->user();
+    $userObject = \App\Models\User::find($user->id);
+    $userObject->sendEmailVerificationNotification();
+
+});

@@ -2,6 +2,8 @@
 
 return [
 
+    'copyright_text' => 'Copyright '.config('app.name').' 2016-'.date('Y').', all rights reserved',
+
     /*
     |--------------------------------------------------------------------------
     | Mail Driver

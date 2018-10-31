@@ -68,6 +68,6 @@ class Admin extends Authenticatable implements MustVerifyEmail
      * @return void
      */
     public function sendEmailVerificationNotification() {
-        $this->notify(new AdminVerifyEmailNotification());
+        $this->notify(new AdminVerifyEmailNotification($this));
     }
 }
