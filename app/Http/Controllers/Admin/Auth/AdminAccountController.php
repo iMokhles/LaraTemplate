@@ -29,7 +29,7 @@ class AdminAccountController extends Controller
 
     public function showAccountInfoForm() {
 
-        $this->data['title'] = 'Admin Account';
+        $this->data['page_title'] = 'Admin Account';
         $this->data['user'] = $this->guard()->user();
 
         return view('admin.auth.account.update_info', $this->data);
@@ -48,7 +48,7 @@ class AdminAccountController extends Controller
 
     public function showChangePasswordForm()
     {
-        $this->data['title'] = 'Admin Account';
+        $this->data['page_title'] = 'Admin Account';
         $this->data['user'] = $this->guard()->user();
 
         return view('admin.auth.account.change_password', $this->data);
