@@ -23,7 +23,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('user.dashboard', ['title' => 'Dashboard']);
+        return view('user.dashboard', ['page_title' => 'Dashboard']);
     }
     /**
      * redirect to dashboard.

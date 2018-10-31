@@ -2,9 +2,9 @@
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>{{ isset($page_title) ? $page_title.' :: '.config('admin.project_name').' Dashboard' : config('admin.project_name').' Dashboard' }}</title>
+<title>{{ isset($page_title) ? $page_title.' :: '.config('admin_config.project_name').' Dashboard' : config('admin_config.project_name').' Dashboard' }}</title>
 <meta content="{{ isset($page_description) ? $page_description : config('admin.project_description') }}" name="description" />
-<meta content="{{ isset($page_author) ? $page_author : config('admin.project_author') }}" name="author" />
+<meta content="{{ isset($page_author) ? $page_author : config('admin_config.project_author') }}" name="author" />
 
 
 <link href="{{ asset('start_ui') }}/img/favicon.144x144.png" rel="apple-touch-icon" type="image/png" sizes="144x144">
